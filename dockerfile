@@ -17,10 +17,7 @@ RUN apk add --no-cache \
   jpeg-dev \
   pango-dev \
   giflib-dev\
-  libc6-compat\
-  fontconfig
-
-ENV FONTCONFIG_PATH=/etc/fonts
+  libc6-compat
 
 ENV LD_LIBRARY_PATH /lib:/usr/lib:/usr/local/lib
 RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
