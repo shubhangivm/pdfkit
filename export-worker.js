@@ -9,7 +9,7 @@ function doWork(args, cb) {
     if(cb && (typeof cb === 'function')){
       cb(null,null);
     }
-  }, 300000); //1800000 //1200000
+  }, 300000); 
 
   forked_child_process.on("message", result =>
   {

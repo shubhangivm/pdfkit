@@ -3,6 +3,9 @@ const PDFDocument = require("pdfkit-table");
 const { createCanvas, loadImage } = require('canvas');
 const Chart = require('chart.js/auto');
 var doc = new PDFDocument({ margin: 30, size: 'A4', bufferPages: true });
+doc.registerFont('Inter', 'fonts/Inter.ttf');
+doc.registerFont('Inter-Bold', 'fonts/Inter-Bold.otf');
+
 const createChart = require('./chart/createChart');
 // doc.pipe(fs.createWriteStream("./document.pdf"));
 
@@ -21,14 +24,14 @@ const generatepdf = (sampledata) => {
                 }
                 doc.addPage();
                 doc.moveDown(1.5);
-                doc.font("Helvetica-Bold").fontSize(16).text(tableData.title, 20, 50);
+                doc.font("Inter-Bold").fontSize(16).text(tableData.title, 20, 50);
                 if (tableData.data.secondaryHeaders) {
                     const sec = tableData.data.secondaryHeaders;
                     if (sec[2]) {
-                        doc.font("Helvetica-Bold").fontSize(12).text(sec[1].label, 180, 70);
-                        doc.font("Helvetica-Bold").fontSize(12).text(sec[2].label, 370, 70);
+                        doc.font("Inter-Bold").fontSize(12).text(sec[1].label, 180, 70);
+                        doc.font("Inter-Bold").fontSize(12).text(sec[2].label, 370, 70);
                     } else {
-                        doc.font("Helvetica-Bold").fontSize(12).text(sec[1].label, 280, 70);
+                        doc.font("Inter-Bold").fontSize(12).text(sec[1].label, 280, 70);
                     }
                 }
                 // let startWidth=20;
@@ -49,8 +52,8 @@ const generatepdf = (sampledata) => {
                 // });
                 doc.table(table, {
                     // hideHeader: true,
-                    prepareHeader: () => { doc.font("Helvetica-Bold").fontSize(12); },
-                    prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => { doc.font("Helvetica").fontSize(12); },
+                    prepareHeader: () => { doc.font("Inter-Bold").fontSize(12); },
+                    prepareRow: (row, indexColumn, indexRow, rectRow, rectCell) => { doc.font('Inter').fontSize(12); },
                 });
    
         };
@@ -59,7 +62,7 @@ const generatepdf = (sampledata) => {
                 doc.addPage();
                 doc.moveDown(2);
                 // doc.fontSize(12).text(chartData.title, 50, 50, { align: 'left' });
-                doc.font("Helvetica-Bold").fontSize(16).text(chartData.title, 20, 50);
+                doc.font("Inter-Bold").fontSize(16).text(chartData.title, 20, 50);
                 doc.moveDown(1.5);
                 const pageWidth = doc.page.width;
                 const pageHeight = doc.page.height;
@@ -77,7 +80,7 @@ const generatepdf = (sampledata) => {
             doc.moveDown(2);
             const pageWidth = doc.page.width;
             const pageHeight = doc.page.height;
-            doc.font("Helvetica-Bold").fontSize(16).text(data.title, 20, 50);
+            doc.font("Inter-Bold").fontSize(16).text(data.title, 20, 50);
             doc.moveDown(1.5);
             doc.image('assets/NoData.png', 50, 100, {
                 fit: [pageWidth - 150, pageHeight - 200],
@@ -103,12 +106,7 @@ const generatepdf = (sampledata) => {
                     add_table(sampledata.contents[i]);
                 }
                 else {
-                    add_no_data(sampledata.contents[i])
-                    // .then((r) => {
-                    //     resolve();
-                    // }).catch((e) => {
-                    //     resolve();
-                    // })
+                    add_no_data(sampledata.contents[i]);
                 }
             }
             else if (sampledata.contents[i].type == 'sensor-table') {
@@ -160,8 +158,8 @@ const generatepdf = (sampledata) => {
                 .moveTo(10, doc.page.height - 20)
                 .lineTo(pageWidth - 10, doc.page.height - 20)
                 .stroke();
-            doc.font('Helvetica').fontSize(12).text(`© ${new Date().getFullYear()} Thingsup`, 10, doc.page.height - (oldBottomMargin / 2), { align: 'left' })
-            doc.font('Helvetica').fontSize(12).text(`${i + 1}/${pages.count}`, 0, doc.page.height - (oldBottomMargin / 2), { align: 'right' })
+            doc.font('Inter').fontSize(12).text(`© ${new Date().getFullYear()} Thingsup`, 10, doc.page.height - (oldBottomMargin / 2), { align: 'left' })
+            doc.font('Inter').fontSize(12).text(`${i + 1}/${pages.count}`, 0, doc.page.height - (oldBottomMargin / 2), { align: 'right' })
             doc.page.margins.bottom = oldBottomMargin;
         }
 
