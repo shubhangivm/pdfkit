@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', async (req, res) => {
     generateReportPDF(data)
         .then((data) => {
-            console.log(data, "----- generateReportPDF data");
+            console.log(data, "---- generateReportPDF data");
             res.set("Content-Type", "application/pdf");
             res.setHeader(
               "Content-Disposition",
